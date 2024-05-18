@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro Pessoal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Controle Financeiro Pessoal</h1>
+    <div id="balance">Saldo: R$ <span id="balanceAmount">0.00</span></div>
+    <div id="transactions">
+        <h2>Transações</h2>
+        <ul id="transactionList">
+            
+        </ul>
+    </div>
+    <div id="addTransaction">
+        <h2>Adicionar Transação</h2>
+        <div class="inputGroup">
+            <label for="type">Tipo:</label>
+            <select id="type">
+                <option value="income">Receita</option>
+                <option value="food">Alimentação</option>
+                <option value="transportation">Transporte</option>
+                <option value="education">Educação</option>
+                <option value="entertainment">Entretenimento</option>
+                <option value="other">Outros</option>
+            </select>
+        </div>
+        <div class="inputGroup">
+            <label for="amount">Valor:</label>
+            <input type="number" id="amount" placeholder="0.00">
+        </div>
+        <button onclick="addTransaction()">Adicionar</button>
+    </div>
+    <div id="periodSelector">
+        <label for="period">Período:</label>
+        <select id="period">
+            <option value="day">Dia</option>
+            <option value="week">Semana</option>
+            <option value="month">Mês</option>
+            <option value="year">Ano</option>
+        </select>
+    </div>
+
+    <button onclick="calculateExpenses()">Calcular Gastos</button>
+
+</script>
+
+    
+    <button onclick="goToHistorico()">Ver histórico de Gastos</button>
+
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
+
+
