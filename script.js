@@ -113,6 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     balanceAmount.textContent = balance.toFixed(2);
 });
 document.addEventListener('DOMContentLoaded', () => {
+    transactionList.innerHTML = '';
+
     transactions.forEach(transaction => {
         const listItem = document.createElement('li');
         listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(transaction.type)}:</span> <span class="transactionAmount">R$ ${transaction.amount.toFixed(2)}</span>`;
@@ -121,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalIncome = transactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
     const totalExpense = transactions.filter(t => t.type !== 'income').reduce((acc, t) => acc + t.amount, 0);
-
     balance = totalIncome - totalExpense;
     totalExpenses = totalExpense;
 
