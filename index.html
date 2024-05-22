@@ -9,23 +9,25 @@
 <body>
     <h1>Controle Financeiro Pessoal</h1>
     <div id="balance">Saldo: R$ <span id="balanceAmount">0.00</span></div>
-    <div id="transactions">
-        <h2>Transações</h2>
-        <ul id="transactionList">
-            
-        </ul>
+    <div id="transactionsPanel">
+        <div id="transactions">
+            <h2>Transações</h2>
+            <ul id="transactionList">
+              
+            </ul>
+        </div>
     </div>
     <div id="addTransaction">
         <h2>Adicionar Transação</h2>
         <div class="inputGroup">
             <label for="type">Tipo:</label>
             <select id="type">
-                <option value="income">Receita</option>
-                <option value="food">Alimentação</option>
-                <option value="transportation">Transporte</option>
-                <option value="education">Educação</option>
-                <option value="entertainment">Entretenimento</option>
-                <option value="other">Outros</option>
+                <option value="Receita">Receita</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Educação">Educação</option>
+                <option value="Entretenimento">Entretenimento</option>
+                <option value="Outros">Outros</option>
             </select>
         </div>
         <div class="inputGroup">
@@ -37,24 +39,14 @@
     <div id="periodSelector">
         <label for="period">Período:</label>
         <select id="period">
-            <option value="day">Dia</option>
-            <option value="week">Semana</option>
-            <option value="month">Mês</option>
-            <option value="year">Ano</option>
+            <option value="Dia">Dia</option>
+            <option value="Semana">Semana</option>
+            <option value="Mês">Mês</option>
+            <option value="Ano">Ano</option>
         </select>
     </div>
-
     <button onclick="calculateExpenses()">Calcular Gastos</button>
-
-</script>
-
-    
     <button onclick="goToHistorico()">Ver histórico de Gastos</button>
-
-
     <script src="script.js"></script>
-    
 </body>
 </html>
-
-
