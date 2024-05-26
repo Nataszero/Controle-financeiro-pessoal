@@ -112,3 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     balanceAmount.textContent = balance.toFixed(2);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    transactions.forEach(transaction => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(transaction.type)}:</span> <span class="transactionAmount">R$ ${transaction.amount.toFixed(2)}</span>`;
+        transactionList.appendChild(listItem);
+    });
+
+    const totalIncome = transactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
+    const totalExpense = transactions.filter(t => t.type !== 'income').reduce((acc, t) => acc + t.amount, 0);
+
+    balance = totalIncome - totalExpense;
+    totalExpenses = totalExpense;
+
+    balanceAmount.textContent = balance.toFixed(2);
+});
+
+
