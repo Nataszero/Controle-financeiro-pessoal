@@ -2,10 +2,15 @@ let balance = 0;
 let totalExpenses = 0;
 const transactionList = document.getElementById('transactionList');
 const balanceAmount = document.getElementById('balanceAmount');
-const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+let history = JSON.parse(localStorage.getItem('transactionHistory')) || [];
 
 function saveTransactions() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+function saveHistory() {
+    localStorage.setItem('transactionHistory', JSON.stringify(history));
 }
 
 function addTransaction() {
@@ -31,10 +36,13 @@ function addTransaction() {
     };
 
     transactions.push(transaction);
+    history.push(transaction);
     saveTransactions();
+    saveHistory();
 
     const listItem = document.createElement('li');
-    listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(type)}:</span> <span class="transactionAmount">R$ ${amount.toFixed(2)}</span>`;
+    listItem.classList.add('transaction-item');
+    listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(type)}:</span> <span class="transactionAmount">R$ ${amount.toFixed(2)}</span> <span class="transactionEmoji">${getTransactionEmoji(type)}</span>`;
     transactionList.appendChild(listItem);
 
     if (type === 'income') {
@@ -45,7 +53,6 @@ function addTransaction() {
     }
     balanceAmount.textContent = balance.toFixed(2);
     document.getElementById('amount').value = '';
-    
 }
 
 function getTransactionLabel(type) {
@@ -62,6 +69,23 @@ function getTransactionLabel(type) {
             return 'Entretenimento';
         default:
             return 'Outros';
+    }
+}
+
+function getTransactionEmoji(type) {
+    switch (type) {
+        case 'income':
+            return '💰';
+        case 'food':
+            return '🍔';
+        case 'transportation':
+            return '🚌';
+        case 'education':
+            return '📔';
+        case 'entertainment':
+            return '🎉';
+        default:
+            return '💵';
     }
 }
 
@@ -97,10 +121,18 @@ function goToHistorico() {
     window.location.href = "historico/historico.html";
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function clearTransactions() {
+    transactions = [];
+    saveTransactions();
+    updateUI();
+}
+
+function updateUI() {
+    transactionList.innerHTML = '';
     transactions.forEach(transaction => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(transaction.type)}:</span> <span class="transactionAmount">R$ ${transaction.amount.toFixed(2)}</span>`;
+        listItem.classList.add('transaction-item');
+        listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(transaction.type)}:</span> <span class="transactionAmount">R$ ${transaction.amount.toFixed(2)}</span> <span class="transactionEmoji">${getTransactionEmoji(transaction.type)}</span>`;
         transactionList.appendChild(listItem);
     });
 
@@ -111,9 +143,26 @@ document.addEventListener('DOMContentLoaded', () => {
     totalExpenses = totalExpense;
 
     balanceAmount.textContent = balance.toFixed(2);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateUI();
+    document.getElementById('clearTransactionsButton').addEventListener('click', clearTransactions);
+    if (window.location.pathname.endsWith('historico/historico.html')) {
+        loadTransactionsFromLocalStorage();
+    }
 });
 
-    balanceAmount.textContent = balance.toFixed(2);
-});
+function loadTransactionsFromLocalStorage() {
+    const transactionHistoryList = document.getElementById('transactionHistoryList');
+    history.forEach(transaction => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('transaction-item');
+        listItem.innerHTML = `<span class="transactionLabel">${getTransactionLabel(transaction.type)}:</span> <span class="transactionAmount">R$ ${transaction.amount.toFixed(2)}</span> <span class="transactionEmoji">${getTransactionEmoji(transaction.type)}</span> <span class="transactionDate">${transaction.date}</span>`;
+        transactionHistoryList.appendChild(listItem);
+    });
+}
+
+
 
 

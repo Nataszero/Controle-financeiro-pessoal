@@ -10,11 +10,14 @@
 <body>
     <div class="barra"></div>
     <h1>Histórico de Transações</h1>
+    <ul id="transactionHistoryList"></ul>
+    <button id="backButton">Voltar à Página Principal</button>
     <div id="transacoesContainer">
         <div id="transacoes"></div>
     </div>
-    <button id="backButton">Voltar à Página Principal</button>
-    <script src="../script.js"></script>
+   
+   
+    <script src="historico.js"></script>
     <script>
         document.getElementById('backButton').onclick = function() {
             window.location.href = "../index.html";
@@ -40,23 +43,6 @@
                 `;
                 transacoesContainer.appendChild(div);
             });
-        }
-
-        function getTransactionIcon(type) {
-            switch (type) {
-                case 'income':
-                    return '💰';
-                case 'food':
-                    return '🍔';
-                case 'transportation':
-                    return '🚌';
-                case 'education':
-                    return '📚';
-                case 'entertainment':
-                    return '🎉';
-                default:
-                    return '💸';
-            }
         }
     </script>
 </body>
